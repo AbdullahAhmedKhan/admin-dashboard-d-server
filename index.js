@@ -71,12 +71,13 @@ async function run() {
       });
       res.send(updateStatus);
     });
-    app.put("/states/:id", async (req, res) => {
-      const id = req.params.id;
-      const query = { _id: ObjectId(id) };
-      const status = "done";
-      const updateStatus = await userCollection.updateOne(query, {
-        $set: { status: status },
+
+    app.patch("/states", async (req, res) => {
+      const query = {};
+      const states = req.body;
+      console.log(states);
+      const updateStatus = await stateCollection.updateOne(query, {
+        $set: states,
       });
       res.send(updateStatus);
     });
